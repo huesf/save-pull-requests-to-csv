@@ -24,13 +24,13 @@ public class Crawler {
     // number,author,title
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
-    public static void savePullRequestsToCSV (String repo, int n, File csvFile) throws IOException {
+    public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://api.github.com/repos" + repo + "/pulls");
-        try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
+        HttpGet httpGet = new HttpGet("https://api.github.com/repos/" + repo + "/pulls");
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
             List<String> datalist = new ArrayList<>();
-            HttpEntity entity1 = response1.getEntity();
-            InputStream is = entity1.getContent();
+            HttpEntity entity = response.getEntity();
+            InputStream is = entity.getContent();
             String data = IOUtils.toString(is, StandardCharsets.UTF_8);
             JSONArray prlist = JSON.parseArray(data);
             datalist.add("number,author,title");
